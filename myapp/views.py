@@ -8,46 +8,22 @@ def index( request ):
         'title': title
     })
 
-def lista_bibliotecas(request):
-    # Obtener todas las bibliotecas
+def biblioteca ( request ):
     bibliotecas = Biblioteca.objects.all()
+    return render(request, 'bibliotecas/biblioteca.html', {
+        'bibliotecas': biblioteca
+        })
 
-    # Renderizar el template
-    return render(request, 'lista_bibliotecas.html', {'bibliotecas': bibliotecas})
-
-def detalles_biblioteca(request, biblioteca_id):
-    # Obtener la biblioteca
-    biblioteca = Biblioteca.objects.get(pk=biblioteca_id)
-
-    # Obtener todos los libros de la biblioteca
+def libros ( request ):
     libros = Libro.objects.filter(biblioteca=biblioteca)
+    return render(request, 'detalles_biblioteca.html', {
+        'biblioteca': biblioteca, 
+        'libros': Libro
+        })
 
-    # Renderizar el template
-    return render(request, 'detalles_biblioteca.html', {'biblioteca': biblioteca, 'libros': libros})
+def agregar_libro ( request ):
+    libros = 0;
 
-def nuevo_libro(request, biblioteca_id):
+def agregar_biblioteca ( request ):
+    libro = 0;
 
-
-    # Obtener la biblioteca
-    biblioteca = Biblioteca.objects.get(pk=biblioteca_id)
-
-    # Crear un nuevo formulario de libro
-    if request.method == 'POST':
-        form = NuevoLibroForm(request.POST)
-        if form.is_valid():
-            # Crear un nuevo libro
-            libro = Libro()
-            libro.biblioteca = biblioteca
-            libro.nombre = form.cleaned_data['nombre']
-            libro.isbn = form.cleaned_data['isbn']
-            libro.autor = form.cleaned_data['autor']
-            libro.estado = form.cleaned_data['estado']
-            libro.save()
-
-            # Redirigir a la página de detalles de la biblioteca
-            return HttpResponseRedirect(reverse('detalles_biblioteca', args=[biblioteca.id]))
-    else:
-        form = NuevoLibroForm()
-
-    # Renderizar el template
-    return render(request, 'nuevo_libro.html', {'biblioteca': biblioteca, 'form': form})
