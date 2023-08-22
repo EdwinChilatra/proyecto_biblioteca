@@ -2,6 +2,13 @@
 
 {% block content %}
 
-<h1>{{ titulo }}</h1>
+<h1>{{titulo}}</h1>
+{% for libro in libro %}
+    <article>
+        <h2>Libro: {{ libro.titulo }}</h2>
+        <h3>Autor: {{ libro.autor }}</h3>
+        <p>Biblioteca: {{ libro.bibliotecas }}</p>
+    </article>
+{% endfor %}
 
 {% endblock %}

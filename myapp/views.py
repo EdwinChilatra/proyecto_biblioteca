@@ -4,51 +4,53 @@ from .models import Biblioteca, Libro
 from .forms import AgregarNuevoLibro
 from .forms import AgregarNuevaBiblioteca
 
+
 def index( request ):
-    titulo = "Bienvenido a las Bibliotecas Del Sena"
-    return render(request, 'index.html', {
-        'titulo': titulo
+    title = '¡¡Bienvenido a las bibliotecas del Sena!!'
+    return render( request, 'index.html', {
+        'title': title,
     })
 
-def biblioteca ( request ):
-    titulo ='Bibliotecas'
-    bibliotecas = Biblioteca.objects.all()
-    return render(request, 'bibliotecas/biblioteca.html', {
-        'titulo': titulo,
-        'bibliotecas': biblioteca
-        })
+def biblioteca( request ):
+    biblioteca = list(Biblioteca.objects.values())
+    titulo = 'Bibliotecas:'
+    return render(request, 'Biblioteca/biblioteca.html',{
+        'titulo':titulo,
+        'biblioteca':biblioteca,
+    })
 
-def libros ( request ):
-    titulo ='Libros'
-    libros = Libro.objects.all()
-    return render(request, 'libros/libro.html', {
-        'titulo': titulo,
-        'libros': Libro
-        })
+def libro( request ):
+    titulo = 'Libros'
+    libro = Libro.objects.all()
+    return render( request, 'Libros/libro.html', {
+        'titulo':titulo,
+        'libro':libro,
+    })
 
-def agregar_libro ( request ):
-    titulo ='Agregar Libro'
-    if request.method == 'GET':    
-        return render( request, 'libros/agregar_libros.html', {
-            'form': AgregarNuevoLibro()
+def crear_Libro( request ):
+    if request.method == 'GET':
+        return render( request, 'Libros/crear_Libro.html', {
+            'form':AgregarNuevoLibro(),
         })
-    else: 
+    else:
         titulo = request.POST['titulo']
-        ISBN = request.POST['ISBN']
         autor = request.POST['autor']
-        estado_libro = request.POST ['estado_libro']
-        id_libro = 1
-        Libro.objects.create(titulo=titulo, ISBN=ISBN, id_libro=id_libro, autor=autor, estado_libro=estado_libro)
-        return redirect('/libros/libro')
-    
-def agregar_biblioteca ( request ):
-    if request.method == 'GET':    
-        return render( request, 'bibliotecas/agregar_biblioteca.html', {
-            'form': AgregarNuevaBiblioteca()
+        isbn = request.POST['ISBN']
+        estado = request.POST['estado']
+        biblioteca = 1
+        biblioteca = Biblioteca.objects.get(id=biblioteca)
+        Libro.objects.create(titulo=titulo, autor=autor, ISBN=isbn, estado=estado, bibliotecas=biblioteca)
+        return redirect('/libro')
+
+def crear_Biblioteca( request ):
+    if request.method == 'GET':
+        return render( request, 'Biblioteca/crear_Biblioteca.html', {
+            'form':AgregarNuevaBiblioteca(),
         })
-    else: 
-        nombre_biblioteca = request.POST['nombre_biblioteca']
+    else:
+        nombre = request.POST['nombre']
         ubicacion = request.POST['ubicacion']
-        Biblioteca.objects.create(nombre_biblioteca=nombre_biblioteca, ubicacion=ubicacion)
-        return redirect('/bibliotecas/biblbioteca')
+        Biblioteca.objects.create(nombre=nombre, ubicacion=ubicacion)
+        return redirect('/biblioteca')
+
 
