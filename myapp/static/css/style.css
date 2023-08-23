@@ -7,14 +7,18 @@ h1{
 
 h2, h3, p{
     margin-left: 10px;
+    
 }
 
 .boton{
     margin-left: 15px;
-    height: 30px;
-    width: 60px;
+    height: 35px;
+    width: 65px;
     border-radius: 10px;
-    background-color: antiquewhite;
+    background-color: #e5e7e9  ;
+    font-weight: bold;
+    font-style: oblique;
+    font-size: 17px;
 }
 
 body{
@@ -37,6 +41,7 @@ nav ul li {
     float: left;
     font-family: Arial, Helvetica, sans-serif;;
     font-size: 20px;
+    font-weight: bold;
 }
 nav ul li a {
     margin-left: -70px;
@@ -44,4 +49,13 @@ nav ul li a {
     padding: 30px;
     color:  black;
     text-decoration: none;
+}
+
+.logo{
+    margin-left: 31em;
+    margin-top: 10px;
+}
+
+.formulario{
+    font-weight: bold;
 }
