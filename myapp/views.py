@@ -13,7 +13,7 @@ def index( request ):
 
 def biblioteca( request ):
     biblioteca = list(Biblioteca.objects.values())
-    titulo = 'Bibliotecas:'
+    titulo = 'Bibliotecas'
     return render(request, 'Biblioteca/biblioteca.html',{
         'titulo':titulo,
         'biblioteca':biblioteca,
