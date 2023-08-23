@@ -22,14 +22,14 @@ def biblioteca( request ):
 def libro( request ):
     titulo = 'Libros'
     libro = Libro.objects.all()
-    return render( request, 'Libros/libro.html', {
+    return render( request, 'libros/libro.html', {
         'titulo':titulo,
         'libro':libro,
     })
 
 def crear_Libro( request ):
     if request.method == 'GET':
-        return render( request, 'Libros/crear_Libro.html', {
+        return render( request, 'libros/crear_Libro.html', {
             'form':AgregarNuevoLibro(),
         })
     else:
@@ -44,7 +44,7 @@ def crear_Libro( request ):
 
 def crear_Biblioteca( request ):
     if request.method == 'GET':
-        return render( request, 'Biblioteca/crear_Biblioteca.html', {
+        return render( request, 'Biblioteca/crear_biblioteca.html', {
             'form':AgregarNuevaBiblioteca(),
         })
     else:
